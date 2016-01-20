@@ -10,35 +10,43 @@ from __future__ import print_function
 import sys
 from operator import itemgetter
 
+import math
+
 import first
 import thinkstats2
 
 
 def Mode(hist):
     """Returns the value with the highest frequency.
-
     hist: Hist object
-
     returns: value from Hist
     """
-    return 0
+    freq, value = max([(freq, value) for value, freq in hist.Items()])
+    return value
 
 
 def AllModes(hist):
     """Returns value-freq pairs in decreasing order of frequency.
-
     hist: Hist object
-
     returns: iterator of value-freq pairs
     """
-    return []
+    return sorted(hist.Items(), key=itemgetter(1), reverse=True)
+
+
+def cohen_effect_size(group1, group2):
+    diff = group1.mean() - group2.mean()
+    n1, n2 = len(group1), len(group2)
+    pooled_var = (n1 * group1.var() + n2 * group2.var()) / (n1 + n2)
+    return diff / math.sqrt(pooled_var)
+
+
+def WeightDifference(firsts, others):
+    mean_diff = firsts.totalwgt_lb.mean() - others.totalwgt_lb.mean()
+    c_diff = cohen_effect_size(firsts.totalwgt_lb, others.totalwgt_lb)
+    return mean_diff, c_diff
 
 
 def main(script):
-    """Tests the functions in this module.
-
-    script: string script name
-    """
     live, firsts, others = first.MakeFrames()
     hist = thinkstats2.Hist(live.prglngth)
 
@@ -55,6 +63,8 @@ def main(script):
         print(value, freq)
 
     print('%s: All tests passed.' % script)
+
+    print("Mean diff and Cohen d: {0}".format(WeightDifference(firsts, others)))
 
 
 if __name__ == '__main__':
