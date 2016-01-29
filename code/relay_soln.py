@@ -45,7 +45,7 @@ def main():
     biased = ObservedPmf(pmf, 7.5, label='observed speeds')
 
     thinkplot.Pmf(biased)
-    thinkplot.Save(root='observed_speeds',
+    thinkplot.Show(root='observed_speeds',
                    title='PMF of running speed',
                    xlabel='speed (mph)',
                    ylabel='PMF')
@@ -55,7 +55,7 @@ def main():
 
     thinkplot.PrePlot(2)
     thinkplot.Cdfs([cdf, cdf_biased])
-    thinkplot.Save(root='observed_speeds_cdf',
+    thinkplot.Show(root='observed_speeds_cdf',
                    title='CDF of running speed',
                    xlabel='speed (mph)',
                    ylabel='CDF')
