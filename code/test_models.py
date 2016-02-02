@@ -26,7 +26,24 @@ def ReadFile(filename):
     return data
 
 
-def main(script, filename='mystery0.dat'):
+# mystery0 - linear
+# mystery1 - normal
+# mystery2 - exponential
+# mystery3 - normal
+# mystery4 - (!) expo/weibull?
+# mystery5 - pareto
+# mystery6 - (!) normal/weibull?
+# mystery7 - (!) exponential
+
+# mystery0.dat uniform_sample
+# mystery1.dat triangular_sample
+# mystery2.dat expo_sample
+# mystery3.dat gauss_sample
+# mystery4.dat lognorm_sample
+# mystery5.dat pareto_sample
+# mystery6.dat weibull_sample
+# mystery7.dat gumbel_sample
+def main(script, filename='mystery7.dat'):
     data = ReadFile(filename)
     cdf = thinkstats2.Cdf(data)
 
